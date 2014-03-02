@@ -1,19 +1,26 @@
 (function() {
 	Ext.define('mo.view.NewsList', {
 		extend : 'Ext.List',
-		config : {
-			title: 'Settings',
-        	iconCls: 'settings',
-        	store: {
-			fields:['name'],
-			data: [
-				{name : 'Tom'},
-				{name : 'Jack'}
-				]
-			},
-			itemTpl: '{name}'
-		}
 		
+		requires: [
+	        'Ext.plugin.PullRefresh',
+	        'Ext.plugin.ListPaging'
+	    ],
+		
+		config : {
+			limit: 10,
+	        disableSelection: true,
+	
+	        plugins: [
+	            { type: 'listpaging' },
+	            { type: 'pullrefresh' }
+	        ],
+			
+			title: 'Info',
+        	iconCls: 'info',
+        	store: newsStore,
+			itemTpl: '{title}'
+		}
 	});
 	
 })();
