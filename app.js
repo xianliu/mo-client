@@ -23,10 +23,14 @@
 	    },
 	
 	    requires: [
-	        'Ext.tab.Panel'
+	        'Ext.tab.Panel',
+	        'mo.store.News'
 	    ],
 	
-	    
+		store : [
+			'News'
+		],
+		
 	    launch: function() {
 	        Ext.Viewport.add({
 	            xtype: 'tabpanel',
