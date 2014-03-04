@@ -17,25 +17,25 @@ Ext.define('mo.store.News', {
 	     listeners: {
             beforeload: function(){
              	 var proxy = this.getProxy();
-            	 proxy.getMethod = function() { return "POST" }
+            	 proxy.getMethod = function() { return "GET" }
             }
          },
          
          pageSize: 10,
          
 	     proxy: {
-            type: 'rest',
-	       
-            url: 'http://schematic-ipsum.herokuapp.com/?n=15',
-            extraParams: {
-                "type": "object",
-                "properties[id][type]":"string",
-                "properties[id][ipsum]":"id",
-                "properties[title][type]":"string",
-                "properties[title][ipsum]":"sentence",
-                "properties[content][type]":"string",
-                "properties[content][ipsum]":"sentence",
-            },
+            type: 'jsonp',
+	        url: 'http://192.168.1.106:8080/mo-server/news'
+            // url: 'http://schematic-ipsum.herokuapp.com/?n=15',
+            // extraParams: {
+                // "type": "object",
+                // "properties[id][type]":"string",
+                // "properties[id][ipsum]":"id",
+                // "properties[title][type]":"string",
+                // "properties[title][ipsum]":"sentence",
+                // "properties[content][type]":"string",
+                // "properties[content][ipsum]":"sentence",
+            // },
            
       },
       autoLoad: true
