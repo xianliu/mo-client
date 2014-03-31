@@ -60,11 +60,17 @@
 	            },
 	            
 	            views: [
-	            	"NewsList"
+	            	"NewsList",
+	            	"shop.ShopList",
+	            	"shop.ShopCard",
+	            	"user.UserCard",
+	            	"user.UserForm"
 	            ],
 	
 	            items: [
-	                { xclass : 'mo.view.NewsList'}
+	                { xclass : 'mo.view.NewsList'},
+	                { xclass : 'mo.view.shop.ShopCard'},
+	                { xclass : 'mo.view.user.UserCard'}
 	            ]
 	        });
 	    }
