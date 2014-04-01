@@ -22,7 +22,9 @@ Ext.define('dishItem', {
 	
 	updateRecord: function(record) {
 		var me = this;
-		me.down("#name").setHtml(record.get("name"));
+		if(record !== undefined && record !== null) {
+			me.down("#name").setHtml(record.get("name"));	
+		} 
 		
 		me.callParent(arguments);
 	}
