@@ -6,7 +6,6 @@ Ext.define('mo.view.user.UserCard', {
 	requires: ['mo.view.user.UserForm'],
 
 	config: {
-
 		title: 'User',
         iconCls: 'user',
 	

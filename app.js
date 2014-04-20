@@ -1,4 +1,4 @@
-var host = "http://10.208.6.178:8080";
+var host = "http://localhost:8080";
 
 (function() {
 	Ext.Loader.setPath({

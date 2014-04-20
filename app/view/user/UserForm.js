@@ -2,10 +2,11 @@ Ext.define('mo.view.user.UserForm', {
 
 	extend : 'Ext.form.Panel',
 	xtype : 'userForm',
+	
+	requires: ['mo.view.user.RecipeList'],
 
 	constructor : function(config) {
 		this.callParent(arguments);
-
 		// now the userForm is a global var
 		userForm = this;
 	},
@@ -43,7 +44,7 @@ Ext.define('mo.view.user.UserForm', {
 				ui : 'confirm',
 				scope : this,
 				handler : function() {
-
+					Ext.ComponentQuery.query("userContainer")[0].push(new mo.view.user.RecipeList());
 					console.log(userForm.getValues());
 					// form.submit({
 					// url: 'user.json',

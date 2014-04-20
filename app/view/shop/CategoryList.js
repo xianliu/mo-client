@@ -16,7 +16,6 @@ Ext.define('mo.view.shop.CategoryList', {
 				    url: url,
 				    success: function(data) {
 				    	dishStore.removeAll();
-				    	
 						Ext.Array.each(data, function(dish) {
 				          	dishStore.add(dish);
 						});

@@ -1,6 +1,6 @@
-Ext.define('dishItem', {
+Ext.define('recipeItem', {
 	extend : 'Ext.dataview.component.DataItem',
-	alias: 'widget.dishItem',
+	alias: 'widget.recipeItem',
 	config : {
 		padding: 10,
 		layout : {
@@ -15,20 +15,16 @@ Ext.define('dishItem', {
 			itemId: "name"
 		}, {
 			xtype : "button",
-			iconCls : "add",
+			iconCls : "delete",
 			docked : "right",
 			itemId: "button",
 			handler : function(btn, e) {
 				var dishId = btn.getId();
 				var index = dishStore.find("id", dishId);
 				var dish = dishStore.getAt(index).raw;
-				var confirmMsg = "添加" + dish.name + "到订单";
-				Ext.Msg.confirm("Confirmation", confirmMsg, function(result) {
-					if(result === 'yes') {
-						recipeStore.add(dish);
-					}
-				});
 				
+				// we can remove dish in this list
+				// recipeStore.add(dish);
 				e.stopPropagation();
 			}
 		}]
@@ -45,21 +41,15 @@ Ext.define('dishItem', {
 	}
 });
 
-Ext.define('mo.view.shop.DishList', {
+Ext.define('mo.view.user.RecipeList', {
 
 	extend: 'Ext.dataview.DataView',
-	xtype: 'dish',
-	
-	requires: ['mo.view.shop.DishDetail'],
+	xtype: 'recipe',
 
 	config: {
-		store: dishStore,
-		defaultType : "dishItem",
-		useComponents : true,
-		listeners : {
-			itemtap: function(view, item, index, e, eOpts) {
-				Ext.ComponentQuery.query("shopContainer")[0].push(new mo.view.shop.DishDetail());
-			}	
-		}
+		store: recipeStore,
+		defaultType : "recipeItem",
+		useComponents : true
+		// itemTpl: '<div class="recipe">{name}</div>'
 	}
 });
