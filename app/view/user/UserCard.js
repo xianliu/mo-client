@@ -6,7 +6,7 @@ Ext.define('mo.view.user.UserCard', {
 	requires: ['mo.view.user.UserForm'],
 
 	config: {
-		title: 'User',
+		title: '用户中心',
         iconCls: 'user',
 	
 		items: [ {

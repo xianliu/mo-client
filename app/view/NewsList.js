@@ -16,7 +16,7 @@
 	            // { type: 'pullrefresh' }
 	        // ],
 			
-			title: 'Info',
+			title: '新闻公告',
         	iconCls: 'info',
         	store: newsStore,
 			itemTpl: '{title}'

@@ -1,4 +1,4 @@
-Ext.define('mo.store.Dish', {
+Ext.define('mo.store.DishDetail', {
 	extend : 'Ext.data.Store',
 
 	config : {
@@ -6,4 +6,4 @@ Ext.define('mo.store.Dish', {
 	}
 });
 
-dishStore = new mo.store.Dish();
+dishDetailStore = new mo.store.DishDetail();

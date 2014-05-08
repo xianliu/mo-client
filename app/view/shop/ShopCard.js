@@ -7,7 +7,7 @@ Ext.define('mo.view.shop.ShopCard', {
 
 	config: {
 
-		title: 'Shop',
+		title: '店铺',
         iconCls: 'time',
 	
 		items: [ {

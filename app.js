@@ -1,4 +1,5 @@
-var host = "http://192.168.1.105:8080";
+var host = "http://127.0.0.1:8080";
+var currentDishHtml = "curemt dish content is empty";
 
 (function() {
 	Ext.Loader.setPath({

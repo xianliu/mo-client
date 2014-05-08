@@ -11,8 +11,8 @@ Ext.define('dishItem', {
 		},
 		items: [{
 			xtype : "component",
-			html: "name",
-			itemId: "name"
+			html: "item",
+			itemId: "item"
 		}, {
 			xtype : "button",
 			iconCls : "add",
@@ -37,7 +37,10 @@ Ext.define('dishItem', {
 	updateRecord: function(record) {
 		var me = this;
 		if(record !== undefined && record !== null) {
-			me.down("#name").setHtml(record.get("name"));
+			var name = record.get("name");
+			var price  = record.get("price");
+			var itemTemplate = "<span>" + name + "</span>" + "<span>￥" + price + "</span>";
+			me.down("#item").setHtml(itemTemplate);
 			me.down("#button").setId(record.get("id"));	
 		} 
 		
@@ -58,6 +61,8 @@ Ext.define('mo.view.shop.DishList', {
 		useComponents : true,
 		listeners : {
 			itemtap: function(view, item, index, e, eOpts) {
+				dishDetailStore.removeAll();
+				dishDetailStore.add(e.data);
 				Ext.ComponentQuery.query("shopContainer")[0].push(new mo.view.shop.DishDetail());
 			}	
 		}
