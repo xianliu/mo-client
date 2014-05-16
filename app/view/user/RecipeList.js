@@ -11,8 +11,8 @@ Ext.define('recipeItem', {
 		},
 		items: [{
 			xtype : "component",
-			html: "name",
-			itemId: "name"
+			html: "item",
+			itemId: "item"
 		}, {
 			xtype : "button",
 			iconCls : "delete",
@@ -23,8 +23,20 @@ Ext.define('recipeItem', {
 				var index = dishStore.find("id", dishId);
 				var dish = dishStore.getAt(index).raw;
 				
-				// we can remove dish in this list
-				// recipeStore.add(dish);
+				var confirmMsg = "从订单删除" + dish.name ;
+				
+				Ext.Msg.confirm("Confirmation", confirmMsg, function(result) {
+					if(result === 'yes') {
+						// we can remove dish in this list
+						recipeStore.removeAt(index);
+						var sum = 0;
+		        		recipeStore.each(function (item, index, length) {
+							sum = sum + parseInt(item.get('price'));
+						});
+		        		Ext.ComponentQuery.query("seg #price")[0].setHtml('￥' + sum);
+					}
+				});
+				
 				e.stopPropagation();
 			}
 		}]
@@ -33,7 +45,12 @@ Ext.define('recipeItem', {
 	updateRecord: function(record) {
 		var me = this;
 		if(record !== undefined && record !== null) {
-			me.down("#name").setHtml(record.get("name"));
+			var name = record.get("name");
+			var sum = record.get("sum");
+			var price  = record.get("price");
+			var itemTemplate = "<span>" + name + "</span>" + "<span>￥" + price + "</span>";
+			itemTemplate = itemTemplate + "|份数:" + sum;
+			me.down("#item").setHtml(itemTemplate);
 			me.down("#button").setId(record.get("id"));	
 		} 
 		

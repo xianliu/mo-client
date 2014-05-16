@@ -23,9 +23,33 @@ Ext.define('dishItem', {
 				var index = dishStore.find("id", dishId);
 				var dish = dishStore.getAt(index).raw;
 				var confirmMsg = "添加" + dish.name + "到订单";
-				Ext.Msg.confirm("Confirmation", confirmMsg, function(result) {
+				
+				var spinner = Ext.create('Ext.field.Spinner', {
+				    label: '份数',
+				    minValue: 1,
+				    maxValue: 100,
+				    stepValue: 1,
+				    cycle: true,
+				    inputCls: 'dish-spinner',
+				    id: 'dish-spinner'
+				});
+				
+				var config = {
+            		 items : [spinner]
+            	};
+
+            	var msgBox = new Ext.MessageBox(config);
+				
+				msgBox.confirm("Confirmation", confirmMsg, function(result) {
 					if(result === 'yes') {
-						recipeStore.add(dish);
+						var num = Ext.ComponentQuery.query("#dish-spinner")[0].getValue();
+						var index = recipeStore.find("id", dishId);
+						var recipe = recipeStore.getAt(index);
+						var sum = (recipe && recipe.get("sum")) || 0;
+						recipe = dish;
+						recipe.sum = sum + num;
+						recipeStore.removeAt(index);
+						recipeStore.add(recipe);
 					}
 				});
 				

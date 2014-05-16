@@ -2,12 +2,11 @@ Ext.define('mo.view.user.UserForm', {
 
 	extend : 'Ext.form.Panel',
 	xtype : 'userForm',
-	
-	requires: ['mo.view.user.RecipeList'],
+
+	requires : ['mo.view.user.RecipeList', 'mo.view.user.SegView'],
 
 	constructor : function(config) {
 		this.callParent(arguments);
-		// now the userForm is a global var
 		userForm = this;
 	},
 
@@ -17,8 +16,8 @@ Ext.define('mo.view.user.UserForm', {
 		},
 		items : [{
 			xtype : 'textfield',
-			name : 'name',
-			label : 'Name'
+			name : 'username',
+			label : 'User Name'
 		}, {
 			xtype : 'passwordfield',
 			name : 'password',
@@ -34,7 +33,6 @@ Ext.define('mo.view.user.UserForm', {
 				xtype : 'spacer'
 			}, {
 				text : 'Reset',
-
 				scope : this,
 				handler : function() {
 					userForm.reset();
@@ -44,12 +42,26 @@ Ext.define('mo.view.user.UserForm', {
 				ui : 'confirm',
 				scope : this,
 				handler : function() {
-					Ext.ComponentQuery.query("userContainer")[0].push(new mo.view.user.RecipeList());
-					console.log(userForm.getValues());
-					// form.submit({
-					// url: 'user.json',
-					// waitMsg: 'Saving User...'
-					// });
+					userForm.setMasked({
+	                    xtype: 'loadmask',
+	                    message: '登录中'
+	                });
+					
+					var url = host + '/mo-server/api/login.json';
+					Ext.data.JsonP.request({
+					    url: url,
+					    params: userForm.getValues(),
+					    success: function(data) {
+					    	userForm.setMasked(false);
+					    	if(data.code != null && data.code == 503) {
+								Ext.Msg.alert('登录信息', '用户名或者密码错误', Ext.emptyFn);
+					    	} else {
+					    		Ext.ComponentQuery.query("userContainer")[0].push(new mo.view.user.SegView());
+					    		userInfo = data;
+					    	}
+					    }
+					});
+					
 				}
 			}]
 		}]

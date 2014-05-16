@@ -1,5 +1,4 @@
 Ext.define('mo.view.user.UserCard', {
-
 	extend: 'Ext.NavigationView',
 	xtype: 'userContainer',
 	
