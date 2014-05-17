@@ -6,7 +6,6 @@ Ext.define('mo.store.Shop', {
 		listeners: {
 			beforeload: function(){
 				var proxy = this.getProxy();
-				// TODO: when use my server need to change the method
 				proxy.getMethod = function() { return "GET"; };
 			}
 		},

@@ -2,6 +2,7 @@ var host = "http://127.0.0.1:8080";
 var currentDishHtml = "curemt dish content is empty";
 var userInfo = {};
 var price = 0;
+var recipeData = {};
 
 (function() {
 	Ext.Loader.setPath({

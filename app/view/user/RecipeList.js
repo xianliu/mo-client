@@ -67,6 +67,5 @@ Ext.define('mo.view.user.RecipeList', {
 		store: recipeStore,
 		defaultType : "recipeItem",
 		useComponents : true
-		// itemTpl: '<div class="recipe">{name}</div>'
 	}
 });
