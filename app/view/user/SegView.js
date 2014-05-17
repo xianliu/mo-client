@@ -1,14 +1,14 @@
 Ext.define('mo.view.user.SegView', {
     extend: 'Ext.Container',
     xtype: 'seg',
-    requires:['Ext.dataview.List','Ext.SegmentedButton', 'mo.view.user.RecipeList'],
+    requires:['Ext.dataview.List','Ext.SegmentedButton', 'mo.view.user.RecipeList', 'mo.view.user.SubmitList'],
     config:{
     	 listeners : {
 	        	painted : function() {
 	        		var price = getTotalPrice(recipeStore);
 	        		Ext.ComponentQuery.query("seg #price")[0].setHtml('￥' + price);
 	        	}	
-	       },
+	    },
         layout:{
             type:'card'
         },
@@ -36,7 +36,23 @@ Ext.define('mo.view.user.SegView', {
                             handler : function(segmentedbutton, button) {
                             	var container = Ext.ComponentQuery.query("seg")[0];
 						        var selectedComponent = container.getComponent("Second");
-						        container.setActiveItem(selectedComponent);
+						        
+						        var url = host + '/mo-server/api/recipeList.json';
+						        
+						        Ext.data.JsonP.request({
+								    url: url,
+								    params: {
+								    	userId: userInfo.userId
+								    },
+								    success: function(data) {
+								    	submitRecipeStore.removeAll();
+										Ext.Array.each(data, function(ele) {
+								          	submitRecipeStore.add(ele);
+										});
+										
+										container.setActiveItem(selectedComponent);
+								    }
+								});
                             }
                         }]
                     },
@@ -47,11 +63,10 @@ Ext.define('mo.view.user.SegView', {
             },
             {
                 xtype: 'recipe', 
-                itemId: 'First',
+                itemId: 'First'
             }, {
-                xtype: 'component', 
-                itemId: 'Second',
-                html: 'Second component'
+                xtype: 'submit-recipe', 
+                itemId: 'Second'
             }, {
 			    xtype: 'toolbar',
 			    docked: 'bottom',
